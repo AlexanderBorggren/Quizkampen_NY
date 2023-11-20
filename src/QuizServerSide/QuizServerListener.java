@@ -6,7 +6,7 @@ import java.net.Socket;
 
 public class QuizServerListener {
 
-    int port = 45000;
+    int port = 52703;
     QuizServerProtocol qsp;
 
     public QuizServerListener() {

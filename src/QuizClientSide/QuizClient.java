@@ -5,9 +5,9 @@ import java.net.Socket;
 
 public class QuizClient {
 
-    //String ip="127.0.0.1";
-    String ip = "192.168.1.97";
-    int port = 45000;
+    String ip="127.0.0.1";
+    //String ip = "192.168.1.97";
+    int port = 52703;
     Socket socket;
     PrintWriter pw;
     BufferedReader br;

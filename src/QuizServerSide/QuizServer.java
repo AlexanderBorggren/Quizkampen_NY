@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class QuizServer extends Thread {
 
-    int port = 45000;
+    int port = 52703;
 
     Socket s;
     QuizServerProtocol qsp;
