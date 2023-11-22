@@ -10,7 +10,7 @@ public class QuizGUI extends JFrame {
     Icon avatar1 = new ImageIcon("Images/Avatar_1.jpg");
     Icon avatar2 = new ImageIcon("Images/Avatar_2.jpg");
     Icon categoryIcon = new ImageIcon("Images/Kategori1.jpg");
-    Icon questionBackground = new ImageIcon("Images/Question.jpg");
+    Icon questionBackground = new ImageIcon("Images/Questions.jpg");
 
     JPanel playerPanel = new JPanel();
     JPanel questionPanel = new JPanel();

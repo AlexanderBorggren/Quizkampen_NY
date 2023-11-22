@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class DatabaseQuestions {
     public static void main(String[] args) {
 
-        readFromFile("src/DataBase/Question");
+        readFromFile("src/DataBase/Questions");
 
 
         readFromFile("src/DataBase/Answer");
