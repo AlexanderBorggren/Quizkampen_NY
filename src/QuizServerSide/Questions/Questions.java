@@ -9,35 +9,35 @@ import java.util.ArrayList;
 public class Questions {
     /*ArrayList<String> questions =new ArrayList<>();
     ArrayList<String[]> alternativ =new ArrayList<>();
-    ArrayList<String> answer =new ArrayList<>();
+    ArrayList<String> alternative =new ArrayList<>();
     ArrayList<String> kategori =new ArrayList<>();*/
 
     String category;
     String question;
-    String[] answer;
-    String correctAnswer;
+    String[] alternative;
+    String correctalternative;
 
-    Questions(String category, String question, String[] answer, String correctAnswer) {
+    Questions(String category, String question, String[] alternative, String correctalternative) {
         this.category = category;
         this.question = question;
-        this.answer = answer;
-        this.correctAnswer = correctAnswer;
+        this.alternative = alternative;
+        this.correctalternative = correctalternative;
     }
 }
 
 public class arrayOfQuestions{
 
-        ArrayList<Questions>questionsAndAnswers=new ArrayList<>();
+        ArrayList<Questions>questionsAndalternatives=new ArrayList<>();
 
         try (BufferedReader reader=new BufferedReader(new FileReader("src/DataBase/Questions"))){
             String line;
             while ((line=reader.readLine()!=null)) {
                 String category = line;
                 String question = reader.readLine();
-                String[] answer = reader.readLine().split(";");
-                String correctAnswer=reader.readLine();
+                String[] alternative = reader.readLine().split(";");
+                String correctalternative=reader.readLine();
 
-                questionsAndAnswers.add(new Questions(category,question,answer,correctAnswer));
+                questionsAndalternatives.add(new Questions(category,question,alternative,correctalternative));
 
             }
         } catch (IOException e) {
