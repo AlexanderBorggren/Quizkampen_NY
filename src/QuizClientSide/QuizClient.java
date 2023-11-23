@@ -7,11 +7,13 @@ import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 
+import static java.lang.Thread.sleep;
+
 public class QuizClient{
 
     String ip="127.0.0.1";
     //String ip = "192.168.1.97";
-    int port = 45000;
+    int port = 42050;
     Socket socket;
     ObjectInputStream inputStream;
     ObjectOutputStream outputStream;
@@ -70,6 +72,21 @@ public class QuizClient{
     }
 
      */
+    public boolean sendAndGetMessage(String answerOutput) {
+        boolean isCorrect = false;
+        try {
+            // Skicka svaret till servern
+            outputStream.writeObject(answerOutput);
+            // Läs svaret från servern
+            isCorrect = (boolean) inputStream.readObject();
+            System.out.println(isCorrect);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return isCorrect;
+    }
 
     public void play() {
         System.out.println("Run quizClient.play");
@@ -103,6 +120,7 @@ public class QuizClient{
                 //}
             }
             //SEND QUIT MESSAGE
+
             //outputStream.writeObject();
         }
         finally {

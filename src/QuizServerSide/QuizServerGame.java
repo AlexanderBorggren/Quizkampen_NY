@@ -50,3 +50,4 @@ public class QuizServerGame implements Serializable {
     public int getNumberOfQuestionsPerRound() { return numberOfQuestionsPerRound; }
     public NetworkProtocol getNetworkProtocol() { return networkProtocol; }
 }
+

@@ -38,7 +38,6 @@ public class QuizServerPlayer extends Thread implements Serializable {
             while (true) {
 
             //ONLY TESTING
-
                 System.out.println("Running gameloop for player: " + getPlayerName());
 
                 //SEND NETWORKMESSAGE OBJECT
@@ -49,12 +48,24 @@ public class QuizServerPlayer extends Thread implements Serializable {
                 System.out.println("Sending PlayerObject for player: " + getPlayerName());
                 output.writeObject(this);
 
+                System.out.println("Write answer");
+                //READ ANSWER
+                String answerInput = (String) input.readObject();
+                System.out.println("Read answer: " + answerInput);
+                // Kontrollera om svaret är korrekt
+                boolean isCorrect = correctAnswer(answerInput);
+                // Skicka resultatet tillbaka till klienten
+                output.writeObject(isCorrect);
+                System.out.println(isCorrect);
+
             //END OF TESTING
 
                 output.flush(); // True?: One flush per loop should be more than enough if not too much, don't call flush more than once per loop
             }
         }
         catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -70,4 +81,12 @@ public class QuizServerPlayer extends Thread implements Serializable {
     public QuizServerGame getGame() {
         return game;
     }
+
+    public boolean correctAnswer(String answerInput) {
+        // Kontrollera om svaret är korrekt
+        System.out.println("Correct answer(check): " + answerInput);
+        boolean isCorrect = answerInput.equals("true");
+        return isCorrect;
+    }
 }
+

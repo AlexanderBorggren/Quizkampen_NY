@@ -1,5 +1,7 @@
 package QuizClientSide;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -63,7 +65,17 @@ public class QuizController implements Runnable{
                 }
             }
             if(e.getSource() == pGUI.answerButtons[1]){
-                System.out.println("Alt.2 Pushed");
+                String answer = pGUI.getButtonText(1);
+                boolean isCorrect = client.sendAndGetMessage("true");
+                JButton button = (JButton) e.getSource();
+                if (isCorrect) {
+                    button.setBackground(new Color(0,255,0));
+                    System.out.println("Correct answer");
+                } else {
+                    button.setBackground(new Color(255,0,0));
+                    System.out.println("Wrong answer");
+                }
+
                 //messageFromServer=client.sendAndGetMessage(pGUI.getButtonText(1));
             }
             if(e.getSource() == pGUI.answerButtons[2]){
@@ -103,6 +115,7 @@ class CategoryButtonListener implements ActionListener {
             }
 
         }
+
     }
 
     public static void main(String[] args) throws Exception {

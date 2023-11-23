@@ -70,7 +70,7 @@ public class NetworkProtocol {
                 //parsePlayer();
                 break;
             case 0x01:
-                //parseAnswerQuestion();
+                parseAnswerQuestion();
                 break;
             case 0x02:
                 //parseChooseCategory();
@@ -108,6 +108,10 @@ public class NetworkProtocol {
 
     public void sendPacketClient(ObjectOutputStream objectOutputStream, NetworkMessage networkMessage) throws IOException {
         objectOutputStream.writeObject(networkMessage);
+    }
+
+    public void parseAnswerQuestion(){
+        System.out.println("Answer question");
     }
 
 

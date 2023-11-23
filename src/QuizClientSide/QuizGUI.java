@@ -70,6 +70,7 @@ public class QuizGUI extends JFrame {
     LayoutManager playersLayout = new GridLayout(3,3);
     LayoutManager answerLayout = new GridLayout(2,2);
     Font f = new Font(null, 3, 20);
+
     Color answButtonColor = new Color(20,40,100);
 
     //------------Scoreboard Window------------------------
