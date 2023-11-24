@@ -20,9 +20,8 @@ public class QuizServerPlayer extends Thread implements Serializable {
     String playerName;
 
 
-    public QuizServerPlayer(Socket socket, QuizServerGame game, String playerName, boolean firstMove) {
+    public QuizServerPlayer(Socket socket, QuizServerGame game, boolean firstMove) {
         this.game = game;
-        this.playerName = playerName;
         this.socket = socket;
         try {
             output = new ObjectOutputStream(this.socket.getOutputStream());

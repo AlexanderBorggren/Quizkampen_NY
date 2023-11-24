@@ -12,14 +12,6 @@ public class QuizServer{
 
         System.out.println("Quiz Server is Running");
 
-        //ONLY FOR TESTING
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Player1");
-        names.add("Player2");
-        names.add("Player3");
-        names.add("Player4");
-        int curIndex = 0;
-
         try {
             while (true) {
                 //Think we must have game object so we have a game session that we can connect players to,
@@ -39,16 +31,12 @@ public class QuizServer{
                     Multiple Threads gets enabled through Player class serverside (Runs separate thread per client)
                     Game loop is in QuizServerPlayer.run()
                  */
-                QuizServerPlayer player1 = new QuizServerPlayer(listener.accept(), game, names.get(curIndex), true);
-
+                QuizServerPlayer player1 = new QuizServerPlayer(listener.accept(), game, true);
                 player1.start();
 
-                curIndex++;
-                QuizServerPlayer player2 = new QuizServerPlayer(listener.accept(), game, names.get(curIndex), false);
-                curIndex++;
-
-                System.out.println("Two players connected, Starting game");
+                QuizServerPlayer player2 = new QuizServerPlayer(listener.accept(), game, false);
                 player2.start();
+                System.out.println("Two players connected, Starting game");
 
                 //Alternative approach, easier threading (Sigrun's comment)
                 //Game2 game2 = new Game2(socket1, socket2);
