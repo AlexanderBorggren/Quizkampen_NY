@@ -8,7 +8,7 @@ public class NetworkMessage implements Serializable {
     {
         this.networkCode = networkCode;
     }
-    int networkCode = 0;
+    int networkCode;
 
     public int getNetworkCode() { return networkCode; }
 }

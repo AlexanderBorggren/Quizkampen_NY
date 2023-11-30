@@ -32,15 +32,6 @@ public class AnswerTimer {
                         }
                         timer.stop();
                     }
-
-                    /*
-                    try {
-                        Thread.sleep(20*1000/quizController.pGUI.progressBar.getMaximum());
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                     */
                 }
             };
             timer = new Timer(0, listener);

@@ -2,7 +2,6 @@ package QuizServerSide.Questions;
 
 import QuizServerSide.QuizServerGame;
 import QuizServerSide.QuizServerPlayer;
-
 import java.util.ArrayList;
 
 public class Questions {
@@ -11,48 +10,28 @@ public class Questions {
     ArrayList<String> alternative;
     String correctAlternative;
 
-
-
     Questions(String category, String question, ArrayList<String> alternative, String correctAlternative) {
         this.category = category;
         this.question = question;
         this.alternative = alternative;
         this.correctAlternative = correctAlternative;
     }
-
     public String getCategory() {
         return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public String getQuestion() {
         return question;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
     public ArrayList<String> getAlternative() {
         return alternative;
     }
 
-    public void setAlternative(ArrayList<String> alternative) {
-        this.alternative = alternative;
-    }
-
-    public String getCorrectAlternative() {
-        return correctAlternative;
-    }
-
-    public void setCorrectAlternative(String correctAlternative) {
-        this.correctAlternative = correctAlternative;
-    }
-
     public boolean checkAnswer(String answer, QuizServerPlayer player, QuizServerGame game){
+        if((answer != null) && (!answer.isEmpty())) {
+            answer = answer.substring(14, answer.length() - 16); // remove html tags
+        }
         boolean result = answer.equals(correctAlternative);
         player.getAnswers()[player.getCurrentRound()][player.getCurrentQuestionWithinRound()] = result;
         return result;
