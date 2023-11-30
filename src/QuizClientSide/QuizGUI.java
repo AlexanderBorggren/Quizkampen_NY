@@ -194,6 +194,8 @@ public class QuizGUI extends JFrame {
         playerAvatarPanel1.setLayout(new BoxLayout(playerAvatarPanel1, BoxLayout.Y_AXIS));
         playerAvatarPanel2.setLayout(new BoxLayout(playerAvatarPanel2, BoxLayout.Y_AXIS));
         playerCategoryPanel.setLayout(new BoxLayout(playerCategoryPanel, BoxLayout.Y_AXIS));
+        categoryNameLabel.setAlignmentX(0.5f);
+        categoryLabel.setAlignmentX(0.5f);
 
         player1.setAlignmentX(0.5f);
         player1NameLabel.setAlignmentX(0.5f);
@@ -504,11 +506,11 @@ public class QuizGUI extends JFrame {
         cardLo.show(mainQuizPanel, category);
     }
     public void setNameLabels(String name1) {
-        player1NameLabel.setText(name1);
+        player1NameLabel.setText(" "+name1+" ");
         nameLabel[1].setText(name1);
     }
     public void setOpponentName(String catName) {
-        player2NameLabel.setText("   " + catName);
+        player2NameLabel.setText(" "+catName+" ");
         nameLabel[2].setText(catName);
     }
 
