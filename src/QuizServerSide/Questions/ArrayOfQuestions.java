@@ -6,50 +6,78 @@ import java.io.IOException;
 import java.util.*;
 
 public class ArrayOfQuestions {
-    HashMap<String, Questions> allQuestionsFromFile = new HashMap<>();
+    HashMap<String, ArrayList<Questions>> allQuestionsFromFile = new HashMap<>();
     ArrayList<String> categories = new ArrayList<>();
+    ArrayList<Questions> allQuestionsFromFileInList = new ArrayList<>();
 
     public ArrayOfQuestions() {
+        System.out.println("Reading questions from file....");
         try (BufferedReader reader = new BufferedReader(new FileReader("src/QuizServerSide/Questions/Questions"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String category = line;
-                if(!categories.contains(category)) {
+                if (!categories.contains(category)) {
                     categories.add(line);
                 }
                 String question = reader.readLine();
                 String[] alternative = reader.readLine().split(";");
-                ArrayList<String> listAlternatives = new ArrayList<>(Arrays.asList(alternative));
-                Collections.shuffle(listAlternatives);
                 String correctalternative = reader.readLine();
 
-                System.out.println("Load in question: " + question);
-                allQuestionsFromFile.put(question, new Questions(category, question, listAlternatives, correctalternative));
-
+                allQuestionsFromFileInList.add(new Questions(category, question, alternative, correctalternative));
             }
+            generateHashMap();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public void generateHashMap(){
+        for(int i = 0; i<categories.size(); i++){
+            ArrayList<Questions> tempList = new ArrayList<>();
+            for(int j = 0; j<allQuestionsFromFileInList.size(); j++) {
+                if (allQuestionsFromFileInList.get(j).getCategory().equals(categories.get(i))){
+                    tempList.add(allQuestionsFromFileInList.get(j));
+                }
+                    allQuestionsFromFile.put(categories.get(i), tempList);
+            }
+        }
     }
 
     public Questions generateRandomQuestion(String categoryFromUser) {
         ArrayList<Questions> questionsWithCurrentCategory = new ArrayList<>();
         //Populate a new list with questions for specific category
         // (allQuestionsFromFile is the one keeping tabs on already asked questions)
-        for(Questions question : allQuestionsFromFile.values()){
-            if (question.category.equals(categoryFromUser)){
+        questionsWithCurrentCategory = allQuestionsFromFile.get(categoryFromUser);
+
+        Collections.shuffle(questionsWithCurrentCategory);
+
+        Questions tempQuestion = questionsWithCurrentCategory.get(0);
+        questionsWithCurrentCategory.remove(0);
+        allQuestionsFromFile.put(categoryFromUser, questionsWithCurrentCategory);
+        System.out.println(tempQuestion.question);
+        return tempQuestion;
+    }
+
+  /*  public Questions generateRandomQuestion(String categoryFromUser) {      // bort kommenterad for testing
+        ArrayList<Questions> questionsWithCurrentCategory = new ArrayList<>();
+        System.out.println("Antal frågor i kategorin. Före: " + questionsWithCurrentCategory.size());
+        //Populate a new list with questions for specific category
+        // (allQuestionsFromFile is the one keeping tabs on already asked questions)
+        for (Questions question : allQuestionsFromFile.values()) {
+            if (question.category.equals(categoryFromUser)) {
                 questionsWithCurrentCategory.add(question);
             }
         }
 
-       Collections.shuffle(questionsWithCurrentCategory);
+        Collections.shuffle(questionsWithCurrentCategory);
 
         Questions tempQuestion = questionsWithCurrentCategory.get(0);
         allQuestionsFromFile.remove(tempQuestion.getQuestion());
         System.out.println(tempQuestion.question);
-       return tempQuestion;
-    }
+        System.out.println("Antal frågor i kategorin. Efter: " + questionsWithCurrentCategory.size());
+        return tempQuestion;
+        return new Questions("1", "2", alternative, "3");
+    }*/
 
     public String[] randomizeAnswerAlternatives(String[] answers) {
         List<String> shuffledAlternatives = new ArrayList<>(Arrays.asList(answers));
@@ -62,23 +90,32 @@ public class ArrayOfQuestions {
     public String[] randomizeCategoryAlternatives(int nrOfCategories) {
         Collections.shuffle(this.categories);
         String[] nrOfRandomCategories = new String[nrOfCategories];
-        for(int i= 0; i<nrOfCategories; i++){
+        for (int i = 0; i < nrOfCategories; i++) {
             nrOfRandomCategories[i] = this.categories.get(i);
         }
         return nrOfRandomCategories;
     }
 
-
-
-
-
-
-
-    /*public static void main(String[] args) {
+/*
+    public static void main(String[] args) {
         //Skapar en arraylist för frågor samt svar
         //Läsa in frågor och svar
-        ArrayOfQuestions aq=new ArrayOfQuestions();
+        ArrayOfQuestions aq = new ArrayOfQuestions();
         Questions q;
+        System.out.println("Antal frågor: " + aq.allQuestionsFromFileInList.size() + " Antal kategorier: " +
+                aq.categories.size());
+        System.out.println("Antal frågor i HashMap: " + aq.allQuestionsFromFile.size());
+        System.out.println(aq.allQuestionsFromFile.get("Mat").get(1).getQuestion());
+        System.out.println(aq.allQuestionsFromFile.get("Mat").get(1).getQuestion());
+        q=aq.generateRandomQuestion("Mat");
+        q=aq.generateRandomQuestion("Mat");
+        System.out.println("HashMap: " + aq.allQuestionsFromFile);
+
+       /* for (int i = 0; i < 6; i++) {
+            q = aq.generateRandomQuestion("Sci-fi");
+            System.out.println(q.getQuestion());
+        }
+    }
 
         q=aq.generateRandomQuestion("Sci-fi:", game.availableQuestions);
         System.out.println(q.question);
@@ -117,8 +154,6 @@ public class ArrayOfQuestions {
             } else {
                 System.out.println("Fel" + questions.correctalternative + "\n");
             }
-
-
         */
 
-    }
+}

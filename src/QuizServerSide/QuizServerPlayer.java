@@ -11,14 +11,15 @@ import java.net.Socket;
 
 public class QuizServerPlayer extends Thread implements Serializable {
 
-    private final int LOBBY=0;
-    private final int CATEGORY = 1;
-    private final int GAME = 2;
-    private final int SCORE = 3;
-    private final int END = 4;
+    private final int INIT=0;
+    private final int LOBBY=1;
+    private final int CATEGORY = 2;
+    private final int GAME = 3;
+    private final int SCORE = 4;
+    private final int END = 5;
 
     //Testing------------------
-    int status = LOBBY;
+    int status = INIT;
 
     //-------------------------
 
@@ -229,6 +230,12 @@ public class QuizServerPlayer extends Thread implements Serializable {
     public void run()
     {
         try {
+            if(status == INIT){
+                System.out.println("Sending properties to clients...");
+               // Integer[] properties = {game.getNumberOfQuestionsPerRound(),game.getTotalRounds(), game.getnrOfCategories}
+               // serverProtocol.sendCategories(output, game.);
+                status=LOBBY;
+            }
             int i = 0;
             while (true) {
                 if (status == LOBBY) {

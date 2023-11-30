@@ -125,6 +125,7 @@ public class QuizGUI extends JFrame {
     JLabel[] nameLabel = new JLabel[3];
     JLabel[] playerIconLabel = new JLabel[3];
 
+
     public QuizGUI(){
 
         setTitle("QUIZKAMPEN");
